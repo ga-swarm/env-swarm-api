@@ -1,0 +1,31 @@
+version: '3.7'
+networks:
+  pg_local_swarm:
+    external:
+      name: pgadmin_pg_local_swarm
+services:
+  fastapi_service:
+    image: "apiservice_swarm:local"
+    container_name: fast_api_swarm
+    volumes:
+       - ./app:/app
+    ports:
+      - 3007:80
+    env_file: ./.env.local
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+    logging:
+        options:
+            max-file: "10"
+            max-size: 2m
+    restart: always
+    networks:
+      - pg_local_swarm
+    secrets:
+      - oracle_signer_passw
+
+secrets:
+  # oracle_signer_passw:
+  # External secrets are not available to containers created by docker-compose.
+  #   external: true
+  oracle_signer_passw:
+    file: readme.not
