@@ -63,7 +63,7 @@ deploy-prod:
     - cd /home/devops/envelop-mint/api/
     - docker login -u gitlab-ci-token -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $API_CONTAINER_IMAGE
-    - docker-compose -p niftsy -f docker-compose.yaml up -d mint-api-service
+    - docker-compose -p niftsy -f docker-compose.yaml up -d mint_api_service
     - docker system prune --volumes  --force
     #- docker-compose -p niftsy -f docker-compose.yml up -d --force-recreate nginx
   when: manual
