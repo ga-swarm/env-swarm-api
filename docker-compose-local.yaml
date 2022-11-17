@@ -1,12 +1,12 @@
 version: '3.7'
 networks:
-  pg_local_swarm:
+  pg_local:
     external:
-      name: pgadmin_pg_local_swarm
+      name: pgadmin_pg_local
 services:
-  fastapi_service:
+  mint_api_service:
     image: "apiservice_swarm:local"
-    container_name: fast_api_swarm
+    container_name: mint_api
     volumes:
        - ./app:/app
     ports:
@@ -19,13 +19,5 @@ services:
             max-size: 2m
     restart: always
     networks:
-      - pg_local_swarm
-    secrets:
-      - oracle_signer_passw
-
-secrets:
-  # oracle_signer_passw:
-  # External secrets are not available to containers created by docker-compose.
-  #   external: true
-  oracle_signer_passw:
-    file: readme.not
+      - pg_local
+    

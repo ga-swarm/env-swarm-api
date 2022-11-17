@@ -10,5 +10,6 @@ ADD ./requirements.txt /app
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
 COPY docker-compose.yaml /app
+COPY docker-compose-test.yaml /app
 
 COPY ./app /app

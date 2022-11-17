@@ -14,7 +14,6 @@ db/
 doc/
 cert/
 temp*
-!template*
 imgtmp/
 .env
 .env.local

@@ -17,14 +17,11 @@ config pytest app.
 cd <project-root>
 
 ## Run once for buld local containers
-docker build -f ./DockerfileLocal -t apiservice:local .
-docker build -f ./tests/Dockerfile -t tester:local .
+docker build -f ./DockerfileLocal -t apiservice_swarm:local .
 
 ## run with api & tests
 docker-compose  -f docker-compose-local.yaml up
 
-## run tests only
-docker-compose  -f docker-compose-local-onlytest.yaml up
 
 ```
 ### Stage environment

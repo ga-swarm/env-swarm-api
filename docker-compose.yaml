@@ -7,9 +7,9 @@ networks:
       name: niftsy_niftsy_backend
 
 services:
-  fastapi_service:
-    image: "registry.gitlab.com/niftsy/apiservice:api"
-    container_name: fast_api
+  mint_api_service:
+    image: "registry.gitlab.com/niftsy/swarm/apiservice_swarm:api"
+    container_name: mint_api
     restart: always
     env_file: ./.env
     networks:
@@ -19,12 +19,4 @@ services:
         options:
             max-file: "10"
             max-size: 2m
-    secrets:
-      - oracle_signer_passw
-
-secrets:
-  # oracle_signer_passw:
-  # External secrets are not available to containers created by docker-compose.
-  #   external: true
-  oracle_signer_passw:
-    file: readme.not
+    restart: always
