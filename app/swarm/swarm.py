@@ -4,7 +4,6 @@ import requests
 import base64
 import json
 from router.main import router
-from dbconnector.dbconnector import dbconnector
 from pydantic import BaseModel
 from typing import List
 
@@ -62,6 +61,7 @@ def prepare_nft_json(data,refid):
 
 @router.post("/mint/new")
 async def post_swarm_data(data: Nftdata):
+	print('lol')
 	r = {}
 
 	# prepare headers from data:image/png;base64

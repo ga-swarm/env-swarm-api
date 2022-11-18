@@ -1,15 +1,13 @@
 
 from logging.config import dictConfig
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from router.main import router
 
-from dbconnector import token_dispatcher
 from swarm import swarm
 
 app = FastAPI()
-app.include_router(router)
 
 origins = [
     '*',
@@ -33,14 +31,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# @router.get("/tx/{tx_hash}")
-# async def get_tx_status(tx_hash: str, response: Response):
-#     """
-#     Returns transaction state from blockchain
-#     """
-#     return {
-#         "tx_hash": 0,
-#         "tx_status": -1 ,
-#         'tokenId': 1
-#     }
+@router.get("/mint/health")
+async def health():
+    return { "health": "ok" }
 
+app.include_router(router)
