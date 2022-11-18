@@ -1,0 +1,72 @@
+image: docker:stable
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy-stage
+  - deploy
+
+
+before_script:
+  #- docker info
+  #- docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+  #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  #- docker logout $CI_REGISTRY
+
+variables:
+  DOCKER_DRIVER: overlay2
+  API_CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:api
+
+build-api:
+  stage: build
+  tags:
+    - niftsyprod
+  only:
+    - master
+  script:
+    - docker build --pull -t $API_CONTAINER_IMAGE .
+    - docker login -u gitlab-ci-token -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $API_CONTAINER_IMAGE
+
+deploy-on-stage:
+  stage: deploy-stage
+  tags:
+    - niftsystage
+  only:
+    - master
+  variables:
+    #DOCKER_HOST: 'unix:///var/run/docker.sock'
+  script:
+    - cp ./docker-compose-test.yaml /home/devops/envelop-mint/api/
+    - cd /home/devops/envelop-mint/api
+    - docker login -u gitlab-ci-token -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $API_CONTAINER_IMAGE
+    - docker-compose -p niftsy -f docker-compose-test.yaml up -d
+    - docker system prune --volumes  --force
+  environment:
+    name: stage_sgp
+    url: https://stage.api.envelop.is/
+
+######################################################################################
+### PRODUCTION
+######################################################################################
+deploy-prod:
+  stage: deploy
+  tags:
+    - niftsyprod
+  only:
+    - master
+  script:
+    - cp ./docker-compose.yaml /home/devops/envelop-mint/api/
+    - cd /home/devops/envelop-mint/api/
+    - docker login -u gitlab-ci-token -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $API_CONTAINER_IMAGE
+    - docker-compose -p niftsy -f docker-compose.yaml up -d mint_api_service
+    - docker system prune --volumes  --force
+    #- docker-compose -p niftsy -f docker-compose.yml up -d --force-recreate nginx
+  when: manual
+  environment:
+    name: production
+    url: https://api.envelop.is
