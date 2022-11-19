@@ -3,15 +3,26 @@ import logging
 import requests
 import base64
 import json
+import os
 from router.main import router
 from pydantic import BaseModel
 from typing import List
 
 logger = logging.getLogger(__name__)
 
-SWARM_GET_STAMPS_URL = "http://swarm.envelop.is:1635/stamps"
-SWARM_POST_TAGS_URL = "http://swarm.envelop.is:1633/tags"
-SWARM_POST_FILE_URL = "http://swarm.envelop.is:1633/bzz"
+SWARM_GET_STAMPS_URL = os.environ.get('SWARM_GET_STAMPS_URL')
+print(SWARM_GET_STAMPS_URL)
+SWARM_POST_TAGS_URL  = os.environ.get('SWARM_POST_TAGS_URL')
+print(SWARM_POST_TAGS_URL)
+SWARM_POST_FILE_URL  = os.environ.get('SWARM_POST_FILE_URL')
+print(SWARM_POST_FILE_URL)
+
+if SWARM_GET_STAMPS_URL is None or SWARM_GET_STAMPS_URL == '':
+	print('No SWARM_GET_STAMPS_URL variable in .env')
+if SWARM_POST_TAGS_URL is None or SWARM_POST_TAGS_URL == '':
+	print('No SWARM_POST_TAGS_URL variable in .env')
+if SWARM_POST_FILE_URL is None or SWARM_POST_FILE_URL == '':
+	print('No SWARM_POST_FILE_URL variable in .env')
 
 class Nftprop(BaseModel):
     type: str
