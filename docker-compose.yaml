@@ -20,7 +20,7 @@ services:
             max-file: "10"
             max-size: 2m
     restart: always
-    secrets:
-      - oracle_signer_passw 
+    # secrets:
+    #   - oracle_signer_passw 
 
 
