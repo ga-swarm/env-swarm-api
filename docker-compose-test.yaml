@@ -23,11 +23,6 @@ services:
     secrets:
       - oracle_signer_passw     
 
-secrets:
-  # oracle_signer_passw:
-  # External secrets are not available to containers created by docker-compose.
-  #   external: true
-  oracle_signer_passw:
-    file: readme.not 
+
 
   
