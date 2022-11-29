@@ -58,7 +58,7 @@ def get_swarm_tag():
 def prepare_nft_json(data,refid):
     r = {}
     if refid:
-        r.update({ "image": 'https://{}/bzz/{}'.format(SWARM_POST_FILE_URL,refid) })
+        r.update({ "image": '{}/{}'.format(SWARM_POST_FILE_URL,refid) })
     if data.name:
         r.update({ "name": data.name })
     if data.desc:

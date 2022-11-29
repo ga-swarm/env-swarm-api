@@ -8,14 +8,15 @@ you can use local docker postgress.
 For use commands below just rename `.env.example` to `.env.local`
 
 ### Swarm Dev Environment
-#### Swarm Nodes Env
+#### 1. Swarm Nodes Env
+https://github.com/fairDataSociety/fdp-play
 ```bash
 # in separate terminal:
 npm install -g @fairdatasociety/fdp-play
 fdp-play start --fairos
 ```
 
-### Envelop API
+#### 2. Envelop API
 ```bash
 cd <project-root>
 
@@ -29,18 +30,13 @@ docker-compose  -f docker-compose-dev.yaml up
 http://localhost:3007/docs
 
 ```
+Only single endpoint that you need: `http://localhost:3007/mint/new`, curl call example:
 
-
-Only single endpoint that you need:
 ```bash
-curl -X 'POST' \
-  'http://localhost:3007/mint/new' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "name": "name",
-  "desc": "Descr string",
-  "image": "png;example.png",
+curl -X 'POST'   'http://localhost:3007/mint/new'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{
+  "name": "string",
+  "desc": "string",
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII=",
   "mime": "image/png",
   "props": [
     {
