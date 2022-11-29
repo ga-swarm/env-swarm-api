@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 SWARM_GET_STAMPS_URL = os.environ.get('SWARM_GET_STAMPS_URL')
 SWARM_POST_TAGS_URL  = os.environ.get('SWARM_POST_TAGS_URL')
 SWARM_POST_FILE_URL  = os.environ.get('SWARM_POST_FILE_URL')
+SWARM_GET_FILE_URL  = os.environ.get('SWARM_GET_FILE_URL','https://swarm.envelop.is/bzz')
 
 if SWARM_GET_STAMPS_URL is None or SWARM_GET_STAMPS_URL == '':
     print('No SWARM_GET_STAMPS_URL variable in .env')
@@ -58,7 +59,7 @@ def get_swarm_tag():
 def prepare_nft_json(data,refid):
     r = {}
     if refid:
-        r.update({ "image": '{}/{}'.format(SWARM_POST_FILE_URL,refid) })
+        r.update({ "image": '{}/{}'.format(SWARM_GET_FILE_URL,refid) })
     if data.name:
         r.update({ "name": data.name })
     if data.desc:
