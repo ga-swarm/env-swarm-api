@@ -1,0 +1,23 @@
+version: '3.7'
+networks:
+  pg_local:
+    external:
+      name: fdp-play-network
+services:
+  mint_api_service:
+    image: "apiservice_swarm:local"
+    container_name: mint_api
+    volumes:
+       - ./app:/app
+    ports:
+      - 3007:80
+    env_file: ./.env.dev
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+    logging:
+        options:
+            max-file: "10"
+            max-size: 2m
+    restart: always
+    networks:
+      - pg_local
+

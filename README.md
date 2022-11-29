@@ -7,6 +7,15 @@ Actually in this implementation you dont need any DB params. But it wiil be need
 you can use local docker postgress.
 For use commands below just rename `.env.example` to `.env.local`
 
+### Swarm Dev Environment
+#### Swarm Nodes Env
+```bash
+# in separate terminal:
+npm install -g @fairdatasociety/fdp-play
+fdp-play start --fairos
+```
+
+### Envelop API
 ```bash
 cd <project-root>
 
@@ -14,12 +23,14 @@ cd <project-root>
 docker build -f ./DockerfileLocal -t apiservice_swarm:local .
 
 ## run with api & tests
-docker-compose  -f docker-compose-local.yaml up
+docker-compose  -f docker-compose-dev.yaml up
 
 ##In browser
 http://localhost:3007/docs
 
 ```
+
+
 Only single endpoint that you need:
 ```bash
 curl -X 'POST' \
@@ -27,10 +38,10 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "name": "string",
-  "desc": "string",
-  "image": "string",
-  "mime": "string",
+  "name": "name",
+  "desc": "Descr string",
+  "image": "png;example.png",
+  "mime": "image/png",
   "props": [
     {
       "type": "string",
