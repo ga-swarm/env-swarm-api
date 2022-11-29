@@ -22,6 +22,8 @@ origins = [
     'https://api.envelop.is/',
     'https://stage.api.envelop.is/',
     'https://envelop.is/',
+    'https://localhost:3007/',
+    'http://localhost:3007/',
 ]
 app.add_middleware(
     CORSMiddleware,
