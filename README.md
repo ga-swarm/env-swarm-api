@@ -3,9 +3,7 @@ HTTP API, implemented with FastAPI python framework.
 
 ### Local development with docker env
 API service is configured through environment variables, see `.env.example`.
-Actually in this implementation you dont need any DB params. But it wiil be need soon. So 
-you can use local docker postgress.
-For use commands below just rename `.env.example` to `.env.local`
+Actually in this implementation you don't need use any DB params. 
 
 ### Swarm Dev Environment
 #### 1. Swarm Nodes Env
@@ -33,7 +31,11 @@ http://localhost:3007/docs
 Only single endpoint that you need: `http://localhost:3007/mint/new`, curl call example:
 
 ```bash
-curl -X 'POST'   'http://localhost:3007/mint/new'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{
+curl -X 'POST' \
+  'http://localhost:3007/mint/new' \
+    -H 'accept: application/json'  \
+    -H 'Content-Type: application/json' \
+    -d '{
   "name": "string",
   "desc": "string",
   "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII=",
